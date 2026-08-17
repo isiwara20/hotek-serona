@@ -1,84 +1,269 @@
 /*
- * Serona Hotel & Resort — Responsive Stylesheet
- * Phase 1: Media queries and mobile-first overrides
+ * SERONA HOTEL & RESORT — Responsive Stylesheet
+ * Optimized for: 1920px, 1440px, 1366px, 1024px, 768px, 430px, 390px, 360px
  */
 
 /* ============================================================
-   Tablet — max 1024px
+   1. Large Desktop Optimization (1440px – 1920px)
    ============================================================ */
-@media (max-width: 1024px) {
-    .footer-container {
-        grid-template-columns: 1fr 1fr;
-        gap: var(--space-8);
+@media (min-width: 1440px) {
+    .container {
+        width: min(100% - 4rem, 1360px);
     }
-
-    .contact-grid {
-        grid-template-columns: 1fr;
-        gap: var(--space-8);
-    }
-
-    .nav-list { gap: var(--space-5); }
 }
 
 /* ============================================================
-   Mobile — max 768px
+   2. Medium Desktop & Laptops (1025px – 1366px)
    ============================================================ */
-@media (max-width: 768px) {
-    :root { --header-height: 64px; }
-
-    /* Navigation */
-    .site-nav {
+@media (max-width: 1280px) {
+    .booking-bar-form {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+    .booking-bar-form .btn {
+        grid-column: span 4;
+        width: 100%;
+        margin-top: var(--space-2);
+    }
+    .booking-field-group:nth-child(4)::after {
         display: none;
-        position: absolute;
-        top: var(--header-height);
-        left: 0;
-        right: 0;
-        background-color: var(--serona-ivory);
-        border-bottom: 1px solid var(--color-border);
-        padding: var(--space-5) var(--space-6);
-        z-index: 99;
+    }
+    .facilities-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* ============================================================
+   3. Tablet Landscape & Small Laptops (769px – 1024px)
+   ============================================================ */
+@media (max-width: 1024px) {
+    :root {
+        --header-height: 80px;
     }
 
-    .site-nav.open { display: block; }
+    .rooms-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .intro-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-12);
+    }
+
+    .intro-content {
+        padding-left: 0;
+    }
+
+    .dining-split-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dining-img-wrapper {
+        min-height: 360px;
+    }
+
+    .experiences-asymmetric-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .experience-card-large {
+        min-height: 380px;
+    }
+
+    .experiences-icon-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .facilities-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-6);
+    }
+
+    .footer-container {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-10);
+    }
+}
+
+/* ============================================================
+   4. Mobile Devices & Tablet Portrait (max-width: 768px)
+   ============================================================ */
+@media (max-width: 768px) {
+    :root {
+        --header-height: 72px;
+        --space-24: 4rem;
+        --space-32: 5rem;
+    }
+
+    /* Mobile Drawer Header */
+    .nav-toggle {
+        display: flex;
+    }
+
+    .site-nav {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 82%;
+        max-width: 340px;
+        height: 100vh;
+        background-color: var(--color-ivory);
+        box-shadow: var(--shadow-lg);
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        padding: var(--space-12) var(--space-8);
+        transform: translateX(100%);
+        transition: transform var(--transition-normal);
+        z-index: 1000;
+    }
+
+    .site-nav.open {
+        transform: translateX(0);
+    }
 
     .nav-list {
         flex-direction: column;
         align-items: flex-start;
+        gap: var(--space-6);
+        width: 100%;
+    }
+
+    .nav-link {
+        font-size: 1.125rem;
+        color: var(--color-forest);
+    }
+
+    .nav-link::after {
+        display: none;
+    }
+
+    #header-book-btn {
+        display: none;
+    }
+
+    /* Hero Responsive */
+    .hero-section {
+        min-height: 88vh;
+    }
+
+    .hero-title {
+        font-size: clamp(2.75rem, 8vw, 3.75rem);
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .hero-actions .btn {
+        width: 100%;
+    }
+
+    /* Stacked Mobile Booking Bar */
+    .booking-bar-wrapper {
+        margin-top: -30px;
+    }
+
+    .booking-bar-form {
+        grid-template-columns: 1fr;
         gap: var(--space-4);
     }
 
-    .nav-toggle { display: flex; }
+    .booking-field-group {
+        padding-inline: 0;
+        padding-bottom: var(--space-3);
+        border-bottom: 1px solid var(--color-border);
+    }
 
-    /* Hide desktop book button in header on mobile */
-    #header-book-btn { display: none; }
+    .booking-field-group::after {
+        display: none !important;
+    }
 
-    /* Hero */
-    .hero-title { font-size: var(--text-3xl); }
+    .booking-bar-form .btn {
+        grid-column: span 1;
+    }
 
-    /* Grid overrides */
-    .rooms-grid { grid-template-columns: 1fr; }
-    .form-row   { grid-template-columns: 1fr; }
+    /* Cards & Grids */
+    .rooms-grid {
+        grid-template-columns: 1fr;
+    }
 
-    /* Footer */
+    .facilities-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .experiences-icon-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Asymmetric Gallery Mobile Stack */
+    .gallery-asymmetric-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+    }
+
+    .gallery-item-1 { grid-column: span 2; height: 260px; }
+    .gallery-item-2 { grid-column: span 1; height: 180px; }
+    .gallery-item-3 { grid-column: span 1; height: 180px; }
+    .gallery-item-4 { grid-column: span 2; height: 200px; }
+
+    /* Footer Mobile */
     .footer-container {
         grid-template-columns: 1fr;
         gap: var(--space-8);
-        padding-block: var(--space-12);
     }
 
-    /* Booking form */
-    .booking-form { padding: var(--space-6); }
-
-    /* Room detail actions */
-    .room-detail-actions { flex-direction: column; }
+    .footer-bottom-inner {
+        flex-direction: column;
+        gap: var(--space-3);
+        text-align: center;
+    }
 }
 
 /* ============================================================
-   Small Mobile — max 480px
+   5. Small Mobile Screens (360px – 430px)
    ============================================================ */
-@media (max-width: 480px) {
-    .container { padding-inline: var(--space-4); }
-    .hero-content { padding: var(--space-8) var(--space-4); }
-    .hero-actions { flex-direction: column; align-items: stretch; }
-    .flash-container { padding-inline: var(--space-4); }
+@media (max-width: 430px) {
+    .container {
+        width: min(100% - 2rem, var(--container-width));
+    }
+
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .section-title {
+        font-size: 2.125rem;
+    }
+
+    .facilities-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .experiences-icon-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-4);
+    }
+
+    .intro-image-composition {
+        padding-right: 0;
+        padding-bottom: 0;
+    }
+
+    .intro-img-secondary {
+        display: none;
+    }
+
+    .intro-img-main {
+        width: 100%;
+        height: 320px;
+    }
 }

@@ -1,90 +1,124 @@
 /**
  * Serona Hotel & Resort — Main JavaScript
- * Phase 1: Core UI behaviours
- *
- * No jQuery. No frameworks. Pure ES6+.
+ * Handles IntersectionObserver scroll reveals, booking bar interactions,
+ * flash message dismissals, and UI micro-interactions.
  */
 
 'use strict';
 
-// ─────────────────────────────────────────────────────────────────────────────
-// 1. Mobile Navigation Toggle
-// ─────────────────────────────────────────────────────────────────────────────
-(function initMobileNav() {
-    const toggle = document.getElementById('nav-toggle');
-    const nav    = document.querySelector('.site-nav');
+document.addEventListener('DOMContentLoaded', function () {
 
-    if (!toggle || !nav) return;
+    // ─────────────────────────────────────────────────────────────
+    // 1. Native IntersectionObserver Scroll Reveals
+    // ─────────────────────────────────────────────────────────────
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    toggle.addEventListener('click', () => {
-        const isOpen = nav.classList.toggle('open');
-        toggle.setAttribute('aria-expanded', isOpen.toString());
-    });
+    if (!prefersReducedMotion && 'IntersectionObserver' in window) {
+        const revealElements = document.querySelectorAll('.reveal, .reveal-up, .reveal-left, .reveal-right');
 
-    // Close when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!toggle.contains(e.target) && !nav.contains(e.target)) {
-            nav.classList.remove('open');
-            toggle.setAttribute('aria-expanded', 'false');
-        }
-    });
-}());
+        const revealObserver = new IntersectionObserver(function (entries, observer) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target); // Reveal once
+                }
+            });
+        }, {
+            root: null,
+            threshold: 0.12,
+            rootMargin: '0px 0px -50px 0px'
+        });
 
-// ─────────────────────────────────────────────────────────────────────────────
-// 2. Password Toggle (login page)
-// ─────────────────────────────────────────────────────────────────────────────
-(function initPasswordToggle() {
-    const btn   = document.getElementById('password-toggle');
-    const input = document.getElementById('password');
+        revealElements.forEach(function (el) {
+            revealObserver.observe(el);
+        });
+    } else {
+        // Fallback: immediately show all elements if reduced motion or no observer support
+        document.querySelectorAll('.reveal, .reveal-up, .reveal-left, .reveal-right').forEach(function (el) {
+            el.classList.add('is-visible');
+        });
+    }
 
-    if (!btn || !input) return;
+    // ─────────────────────────────────────────────────────────────
+    // 2. Floating Booking / Enquiry Bar Logic
+    // ─────────────────────────────────────────────────────────────
+    const checkInInput = document.getElementById('bar-check-in');
+    const checkOutInput = document.getElementById('bar-check-out');
+    const bookingForm = document.getElementById('hero-booking-bar-form');
 
-    btn.addEventListener('click', () => {
-        const isVisible = input.type === 'text';
-        input.type = isVisible ? 'password' : 'text';
+    if (checkInInput && checkOutInput) {
+        // Set default dates if empty
+        const today = new Date();
+        const tomorrow = new Date(today);
+        tomorrow.setDate(today.getDate() + 2);
 
-        const icon = btn.querySelector('i');
-        if (icon) {
-            icon.className = isVisible ? 'fa-solid fa-eye' : 'fa-solid fa-eye-slash';
-        }
-    });
-}());
+        const formatDate = (date) => date.toISOString().split('T')[0];
 
-// ─────────────────────────────────────────────────────────────────────────────
-// 3. Flash Message Dismiss
-// ─────────────────────────────────────────────────────────────────────────────
-(function initFlashDismiss() {
-    document.querySelectorAll('.flash__close').forEach((btn) => {
-        btn.addEventListener('click', () => {
+        if (!checkInInput.value) checkInInput.value = formatDate(today);
+        if (!checkOutInput.value) checkOutInput.value = formatDate(tomorrow);
+
+        checkInInput.min = formatDate(today);
+
+        checkInInput.addEventListener('change', function () {
+            const checkInDate = new Date(this.value);
+            if (!isNaN(checkInDate.getTime())) {
+                const nextDay = new Date(checkInDate);
+                nextDay.setDate(checkInDate.getDate() + 1);
+                checkOutInput.min = formatDate(nextDay);
+
+                if (new Date(checkOutInput.value) <= checkInDate) {
+                    checkOutInput.value = formatDate(nextDay);
+                }
+            }
+        });
+    }
+
+    // Handle Hero Booking Bar Form Submit -> Redirect to booking.php with prefilled query params
+    if (bookingForm) {
+        bookingForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const checkIn = checkInInput ? checkInInput.value : '';
+            const checkOut = checkOutInput ? checkOutInput.value : '';
+            const guests = document.getElementById('bar-guests') ? document.getElementById('bar-guests').value : '2';
+            const roomType = document.getElementById('bar-room-type') ? document.getElementById('bar-room-type').value : '';
+
+            let targetUrl = 'booking.php?';
+            const params = new URLSearchParams();
+            if (checkIn) params.append('check_in', checkIn);
+            if (checkOut) params.append('check_out', checkOut);
+            if (guests) params.append('adults', guests);
+            if (roomType) params.append('room_id', roomType);
+
+            window.location.href = targetUrl + params.toString();
+        });
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // 3. Flash Messages Dismissal
+    // ─────────────────────────────────────────────────────────────
+    document.querySelectorAll('.flash__close').forEach(function (btn) {
+        btn.addEventListener('click', function () {
             const flash = btn.closest('.flash');
             if (flash) {
-                flash.style.transition = 'opacity 0.25s ease';
                 flash.style.opacity = '0';
-                setTimeout(() => flash.remove(), 300);
+                flash.style.transform = 'translateY(-10px)';
+                setTimeout(function () {
+                    flash.remove();
+                }, 300);
             }
         });
     });
 
-    // Auto-dismiss success flashes after 5 seconds
-    document.querySelectorAll('.flash--success').forEach((flash) => {
-        setTimeout(() => {
-            if (flash.isConnected) {
-                flash.style.transition = 'opacity 0.5s ease';
+    // Auto-dismiss success flash after 5 seconds
+    document.querySelectorAll('.flash--success').forEach(function (flash) {
+        setTimeout(function () {
+            if (flash && flash.parentNode) {
                 flash.style.opacity = '0';
-                setTimeout(() => flash.remove(), 600);
+                setTimeout(function () {
+                    if (flash.parentNode) flash.remove();
+                }, 300);
             }
         }, 5000);
     });
-}());
 
-// ─────────────────────────────────────────────────────────────────────────────
-// 4. Sticky Header — add scroll class
-// ─────────────────────────────────────────────────────────────────────────────
-(function initStickyHeader() {
-    const header = document.getElementById('site-header');
-    if (!header) return;
-
-    window.addEventListener('scroll', () => {
-        header.classList.toggle('scrolled', window.scrollY > 20);
-    }, { passive: true });
-}());
+});
