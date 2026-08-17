@@ -1,0 +1,84 @@
+/*
+ * Serona Hotel & Resort — Responsive Stylesheet
+ * Phase 1: Media queries and mobile-first overrides
+ */
+
+/* ============================================================
+   Tablet — max 1024px
+   ============================================================ */
+@media (max-width: 1024px) {
+    .footer-container {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-8);
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-8);
+    }
+
+    .nav-list { gap: var(--space-5); }
+}
+
+/* ============================================================
+   Mobile — max 768px
+   ============================================================ */
+@media (max-width: 768px) {
+    :root { --header-height: 64px; }
+
+    /* Navigation */
+    .site-nav {
+        display: none;
+        position: absolute;
+        top: var(--header-height);
+        left: 0;
+        right: 0;
+        background-color: var(--serona-ivory);
+        border-bottom: 1px solid var(--color-border);
+        padding: var(--space-5) var(--space-6);
+        z-index: 99;
+    }
+
+    .site-nav.open { display: block; }
+
+    .nav-list {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-4);
+    }
+
+    .nav-toggle { display: flex; }
+
+    /* Hide desktop book button in header on mobile */
+    #header-book-btn { display: none; }
+
+    /* Hero */
+    .hero-title { font-size: var(--text-3xl); }
+
+    /* Grid overrides */
+    .rooms-grid { grid-template-columns: 1fr; }
+    .form-row   { grid-template-columns: 1fr; }
+
+    /* Footer */
+    .footer-container {
+        grid-template-columns: 1fr;
+        gap: var(--space-8);
+        padding-block: var(--space-12);
+    }
+
+    /* Booking form */
+    .booking-form { padding: var(--space-6); }
+
+    /* Room detail actions */
+    .room-detail-actions { flex-direction: column; }
+}
+
+/* ============================================================
+   Small Mobile — max 480px
+   ============================================================ */
+@media (max-width: 480px) {
+    .container { padding-inline: var(--space-4); }
+    .hero-content { padding: var(--space-8) var(--space-4); }
+    .hero-actions { flex-direction: column; align-items: stretch; }
+    .flash-container { padding-inline: var(--space-4); }
+}

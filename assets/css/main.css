@@ -1,0 +1,782 @@
+/*
+ * Serona Hotel & Resort — Main Stylesheet
+ * Phase 1: Design Tokens & Foundation
+ *
+ * Fonts: Cormorant Garamond (headings) + Inter (body)
+ * Design direction: Eco-Luxury · Nature Retreat · Premium · Minimal
+ */
+
+/* ============================================================
+   1. CSS Custom Properties (Design Tokens)
+   ============================================================ */
+:root {
+    /* Brand Palette */
+    --serona-forest:      #263B31;
+    --serona-sage:        #95AB91;
+    --serona-light-sage:  #C6D3C1;
+    --serona-ivory:       #F7F5EE;
+    --serona-cream:       #EEEAE0;
+    --serona-text:        #26372F;
+    --serona-muted:       #6F776F;
+    --serona-white:       #FFFFFF;
+
+    /* Extended Tokens */
+    --color-border:       #D8D4C8;
+    --color-overlay:      rgba(38, 59, 49, 0.6);
+    --color-whatsapp:     #25D366;
+    --color-whatsapp-dark:#128C7E;
+
+    /* Typography Scale */
+    --font-heading: 'Cormorant Garamond', Georgia, serif;
+    --font-body:    'Inter', system-ui, -apple-system, sans-serif;
+
+    --text-xs:   0.75rem;   /* 12px */
+    --text-sm:   0.875rem;  /* 14px */
+    --text-base: 1rem;      /* 16px */
+    --text-lg:   1.125rem;  /* 18px */
+    --text-xl:   1.25rem;   /* 20px */
+    --text-2xl:  1.5rem;    /* 24px */
+    --text-3xl:  1.875rem;  /* 30px */
+    --text-4xl:  2.25rem;   /* 36px */
+    --text-5xl:  3rem;      /* 48px */
+    --text-6xl:  3.75rem;   /* 60px */
+
+    /* Spacing */
+    --space-1:  0.25rem;
+    --space-2:  0.5rem;
+    --space-3:  0.75rem;
+    --space-4:  1rem;
+    --space-5:  1.25rem;
+    --space-6:  1.5rem;
+    --space-8:  2rem;
+    --space-10: 2.5rem;
+    --space-12: 3rem;
+    --space-16: 4rem;
+    --space-20: 5rem;
+    --space-24: 6rem;
+
+    /* Radius */
+    --radius-sm:  4px;
+    --radius-md:  8px;
+    --radius-lg:  12px;
+    --radius-xl:  20px;
+    --radius-full: 9999px;
+
+    /* Shadows */
+    --shadow-sm:  0 1px 2px rgba(38, 59, 49, 0.06);
+    --shadow-md:  0 4px 12px rgba(38, 59, 49, 0.1);
+    --shadow-lg:  0 8px 30px rgba(38, 59, 49, 0.15);
+    --shadow-xl:  0 20px 60px rgba(38, 59, 49, 0.2);
+
+    /* Transitions */
+    --transition-fast:   150ms ease;
+    --transition-normal: 250ms ease;
+    --transition-slow:   400ms ease;
+
+    /* Layout */
+    --container-width: 1280px;
+    --header-height:   80px;
+}
+
+/* ============================================================
+   2. Reset & Base
+   ============================================================ */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    line-height: 1.6;
+    color: var(--serona-text);
+    background-color: var(--serona-ivory);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--serona-forest);
+}
+
+a {
+    color: var(--serona-forest);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+a:hover { color: var(--serona-sage); }
+
+img, video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+ul, ol { list-style: none; }
+
+/* ============================================================
+   3. Layout Utilities
+   ============================================================ */
+.container {
+    width: 100%;
+    max-width: var(--container-width);
+    margin-inline: auto;
+    padding-inline: var(--space-6);
+}
+
+.container--narrow {
+    max-width: 760px;
+}
+
+.section {
+    padding-block: var(--space-20);
+}
+
+/* ============================================================
+   4. Header
+   ============================================================ */
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    height: var(--header-height);
+    background-color: rgba(247, 245, 238, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--color-border);
+    transition: background-color var(--transition-normal);
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    max-width: var(--container-width);
+    margin-inline: auto;
+    padding-inline: var(--space-6);
+    gap: var(--space-8);
+}
+
+.site-logo {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.logo-img { height: 48px; width: auto; }
+.logo-text {
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    font-weight: 500;
+    color: var(--serona-forest);
+}
+
+.site-nav { flex: 1; }
+
+.nav-list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-8);
+}
+
+.nav-link {
+    font-size: var(--text-sm);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--serona-text);
+    padding-block: var(--space-2);
+    border-bottom: 2px solid transparent;
+    transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--serona-forest);
+    border-bottom-color: var(--serona-sage);
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    flex-shrink: 0;
+}
+
+/* Hamburger menu (mobile) */
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--space-2);
+}
+
+.hamburger {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background-color: var(--serona-forest);
+    transition: transform var(--transition-normal), opacity var(--transition-fast);
+}
+
+/* ============================================================
+   5. Buttons
+   ============================================================ */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-6);
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    border-radius: var(--radius-sm);
+    border: 2px solid transparent;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color var(--transition-fast),
+                color var(--transition-fast),
+                border-color var(--transition-fast),
+                box-shadow var(--transition-fast),
+                transform var(--transition-fast);
+    white-space: nowrap;
+}
+
+.btn:active { transform: translateY(1px); }
+
+.btn-primary {
+    background-color: var(--serona-forest);
+    color: var(--serona-white);
+    border-color: var(--serona-forest);
+}
+
+.btn-primary:hover {
+    background-color: #1c2c24;
+    border-color: #1c2c24;
+    color: var(--serona-white);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-outline {
+    background-color: transparent;
+    color: var(--serona-forest);
+    border-color: var(--serona-forest);
+}
+
+.btn-outline:hover {
+    background-color: var(--serona-forest);
+    color: var(--serona-white);
+}
+
+.btn-whatsapp {
+    background-color: var(--color-whatsapp);
+    color: var(--serona-white);
+    border-color: var(--color-whatsapp);
+}
+
+.btn-whatsapp:hover {
+    background-color: var(--color-whatsapp-dark);
+    border-color: var(--color-whatsapp-dark);
+    color: var(--serona-white);
+}
+
+.btn-full { width: 100%; }
+
+.btn-sm {
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--text-xs);
+}
+
+/* ============================================================
+   6. Hero Section
+   ============================================================ */
+.hero {
+    position: relative;
+    min-height: calc(100vh - var(--header-height));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: var(--serona-forest);
+    color: var(--serona-white);
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        135deg,
+        rgba(38, 59, 49, 0.85) 0%,
+        rgba(38, 59, 49, 0.5) 100%
+    );
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    padding: var(--space-12) var(--space-6);
+}
+
+.hero-eyebrow {
+    font-size: var(--text-sm);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--serona-light-sage);
+    margin-bottom: var(--space-3);
+}
+
+.hero-title {
+    font-family: var(--font-heading);
+    font-size: clamp(var(--text-4xl), 7vw, var(--text-6xl));
+    font-weight: 300;
+    color: var(--serona-white);
+    margin-bottom: var(--space-4);
+    line-height: 1.1;
+}
+
+.hero-subtitle {
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    font-style: italic;
+    color: var(--serona-light-sage);
+    margin-bottom: var(--space-8);
+}
+
+.hero-actions {
+    display: flex;
+    gap: var(--space-4);
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.hero .btn-outline {
+    border-color: var(--serona-white);
+    color: var(--serona-white);
+}
+
+.hero .btn-outline:hover {
+    background-color: var(--serona-white);
+    color: var(--serona-forest);
+}
+
+/* ============================================================
+   7. Page Hero (interior pages)
+   ============================================================ */
+.page-hero {
+    background-color: var(--serona-forest);
+    color: var(--serona-white);
+    padding-block: var(--space-16);
+    text-align: center;
+}
+
+.page-title {
+    font-family: var(--font-heading);
+    font-size: clamp(var(--text-3xl), 5vw, var(--text-5xl));
+    font-weight: 300;
+    color: var(--serona-white);
+    margin-bottom: var(--space-3);
+}
+
+.page-subtitle {
+    font-size: var(--text-lg);
+    color: var(--serona-light-sage);
+}
+
+/* ============================================================
+   8. Section Titles
+   ============================================================ */
+.section-title {
+    font-family: var(--font-heading);
+    font-size: clamp(var(--text-2xl), 3vw, var(--text-4xl));
+    font-weight: 400;
+    color: var(--serona-forest);
+    margin-bottom: var(--space-12);
+    text-align: center;
+}
+
+/* ============================================================
+   9. Room Cards
+   ============================================================ */
+.rooms-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--space-8);
+}
+
+.room-card {
+    background-color: var(--serona-white);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+    transition: box-shadow var(--transition-normal), transform var(--transition-normal);
+}
+
+.room-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
+}
+
+.room-card-body { padding: var(--space-6); }
+
+.room-card-title {
+    font-family: var(--font-heading);
+    font-size: var(--text-2xl);
+    margin-bottom: var(--space-3);
+}
+
+.room-card-meta {
+    display: flex;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+    font-size: var(--text-sm);
+    color: var(--serona-muted);
+    margin-bottom: var(--space-3);
+}
+
+.room-card-meta span {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+}
+
+.room-card-desc {
+    color: var(--serona-muted);
+    font-size: var(--text-sm);
+    line-height: 1.6;
+    margin-bottom: var(--space-5);
+}
+
+.room-card-actions {
+    display: flex;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+}
+
+/* ============================================================
+   10. Forms
+   ============================================================ */
+.form-group { margin-bottom: var(--space-5); }
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-5);
+}
+
+.form-label {
+    display: block;
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--serona-text);
+    margin-bottom: var(--space-2);
+}
+
+.form-label span { color: var(--serona-sage); }
+
+.form-input,
+.form-select,
+.form-textarea {
+    width: 100%;
+    padding: var(--space-3) var(--space-4);
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    color: var(--serona-text);
+    background-color: var(--serona-white);
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--radius-md);
+    outline: none;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+    border-color: var(--serona-sage);
+    box-shadow: 0 0 0 3px rgba(149, 171, 145, 0.2);
+}
+
+.form-textarea { resize: vertical; min-height: 120px; }
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-icon {
+    position: absolute;
+    left: var(--space-4);
+    color: var(--serona-muted);
+    pointer-events: none;
+}
+
+.input-wrapper .form-input { padding-left: var(--space-10); }
+
+.password-toggle {
+    position: absolute;
+    right: var(--space-4);
+    background: none;
+    border: none;
+    color: var(--serona-muted);
+    cursor: pointer;
+    padding: var(--space-1);
+}
+
+.form-note {
+    font-size: var(--text-xs);
+    color: var(--serona-muted);
+    text-align: center;
+    margin-top: var(--space-3);
+}
+
+.form-submit { margin-top: var(--space-6); }
+
+/* ============================================================
+   11. Flash Messages
+   ============================================================ */
+.flash-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    max-width: var(--container-width);
+    margin: var(--space-4) auto;
+    padding-inline: var(--space-6);
+}
+
+.flash {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-4) var(--space-5);
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    border-left: 4px solid currentColor;
+}
+
+.flash--success { background-color: #f0faf0; color: #2d6a30; }
+.flash--error   { background-color: #fdf4f4; color: #9b2c2c; }
+.flash--warning { background-color: #fffbeb; color: #92400e; }
+.flash--info    { background-color: #eff6ff; color: #1e40af; }
+
+.flash__icon { flex-shrink: 0; font-size: var(--text-lg); }
+.flash__message { flex: 1; }
+
+.flash__close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: currentColor;
+    opacity: 0.6;
+    padding: var(--space-1);
+    flex-shrink: 0;
+    transition: opacity var(--transition-fast);
+}
+
+.flash__close:hover { opacity: 1; }
+
+/* ============================================================
+   12. Contact Layout
+   ============================================================ */
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: var(--space-16);
+    align-items: start;
+}
+
+.contact-info-title {
+    font-family: var(--font-heading);
+    font-size: var(--text-2xl);
+    margin-bottom: var(--space-6);
+}
+
+.contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    margin-bottom: var(--space-8);
+}
+
+.contact-details li {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    color: var(--serona-muted);
+    font-size: var(--text-sm);
+}
+
+.contact-details i { color: var(--serona-sage); margin-top: 2px; }
+
+/* ============================================================
+   13. Booking Form specific
+   ============================================================ */
+.booking-section { background-color: var(--serona-cream); }
+
+.booking-form {
+    background-color: var(--serona-white);
+    border-radius: var(--radius-xl);
+    padding: var(--space-10);
+    box-shadow: var(--shadow-md);
+}
+
+/* ============================================================
+   14. Footer
+   ============================================================ */
+.site-footer {
+    background-color: var(--serona-forest);
+    color: var(--serona-light-sage);
+}
+
+.footer-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1.5fr;
+    gap: var(--space-12);
+    max-width: var(--container-width);
+    margin-inline: auto;
+    padding: var(--space-16) var(--space-6);
+}
+
+.footer-brand-name {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: var(--text-2xl);
+    color: var(--serona-white);
+    margin-bottom: var(--space-1);
+}
+
+.footer-tagline {
+    display: block;
+    font-size: var(--text-sm);
+    font-style: italic;
+    color: var(--serona-sage);
+    margin-bottom: var(--space-4);
+}
+
+.footer-description {
+    font-size: var(--text-sm);
+    line-height: 1.7;
+    color: var(--serona-muted);
+}
+
+.footer-heading {
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--serona-sage);
+    margin-bottom: var(--space-5);
+}
+
+.footer-nav ul {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+.footer-nav a {
+    font-size: var(--text-sm);
+    color: var(--serona-light-sage);
+    transition: color var(--transition-fast);
+}
+
+.footer-nav a:hover { color: var(--serona-white); }
+
+.footer-contact address {
+    font-style: normal;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+.footer-contact p,
+.footer-contact a {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: var(--text-sm);
+    color: var(--serona-light-sage);
+}
+
+.footer-contact i { color: var(--serona-sage); width: 16px; }
+
+.footer-cta {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(149, 171, 145, 0.2);
+    text-align: center;
+    padding: var(--space-5) var(--space-6);
+    font-size: var(--text-xs);
+    color: var(--serona-muted);
+}
+
+/* ============================================================
+   15. Room Detail
+   ============================================================ */
+.room-specs {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    margin-block: var(--space-6);
+}
+
+.room-specs li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: var(--text-sm);
+    color: var(--serona-text);
+}
+
+.room-specs i { color: var(--serona-sage); width: 18px; }
+
+.room-detail-actions {
+    display: flex;
+    gap: var(--space-4);
+    margin-top: var(--space-8);
+}
+
+/* ============================================================
+   16. Utilities
+   ============================================================ */
+.empty-state {
+    text-align: center;
+    color: var(--serona-muted);
+    font-style: italic;
+    padding: var(--space-16);
+}
+
+.placeholder-note {
+    color: var(--serona-muted);
+    font-style: italic;
+    padding: var(--space-8);
+    text-align: center;
+    background-color: var(--serona-cream);
+    border-radius: var(--radius-md);
+    border: 1px dashed var(--color-border);
+}

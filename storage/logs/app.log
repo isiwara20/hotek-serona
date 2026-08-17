@@ -1,0 +1,17 @@
+﻿
+[17-Aug-2026 07:28:48 Europe/Berlin] [Database] Connection failed: SQLSTATE[HY000] [1049] Unknown database 'serona_db'
+[17-Aug-2026 07:28:48 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1049] Unknown database 'serona_db' in C:\xampp\htdocs\hotek-serona\dal\Database.php:58
+Stack trace:
+#0 C:\xampp\htdocs\hotek-serona\dal\Database.php(58): PDO->__construct('mysql:host=127....', 'root', '', Array)
+#1 C:\xampp\htdocs\hotek-serona\dal\Database.php(31): Database::createConnection()
+#2 C:\xampp\htdocs\hotek-serona\controllers\HomeController.php(14): Database::getConnection()
+#3 C:\xampp\htdocs\hotek-serona\index.php(8): HomeController->__construct()
+#4 {main}
+
+Next RuntimeException: Database connection failed: SQLSTATE[HY000] [1049] Unknown database 'serona_db' in C:\xampp\htdocs\hotek-serona\dal\Database.php:67
+Stack trace:
+#0 C:\xampp\htdocs\hotek-serona\dal\Database.php(31): Database::createConnection()
+#1 C:\xampp\htdocs\hotek-serona\controllers\HomeController.php(14): Database::getConnection()
+#2 C:\xampp\htdocs\hotek-serona\index.php(8): HomeController->__construct()
+#3 {main}
+  thrown in C:\xampp\htdocs\hotek-serona\dal\Database.php on line 67

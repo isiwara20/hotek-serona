@@ -1,0 +1,50 @@
+# ============================================================
+# Serona Hotel & Resort — Root .htaccess
+# ============================================================
+
+# ── Disable directory listing ──────────────────────────────
+Options -Indexes
+
+# ── Follow symbolic links ──────────────────────────────────
+Options +FollowSymLinks
+
+# ── Protect sensitive configuration files ─────────────────
+<FilesMatch "^(\.env|\.git|composer\.json|composer\.lock|package\.json|package-lock\.json)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Block direct access to config directory
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Block access to config/, bll/, dal/, services/, helpers/ directories
+    RewriteRule ^config(/|$)   - [F,L]
+    RewriteRule ^bll(/|$)      - [F,L]
+    RewriteRule ^dal(/|$)      - [F,L]
+    RewriteRule ^services(/|$) - [F,L]
+    RewriteRule ^helpers(/|$)  - [F,L]
+    RewriteRule ^controllers(/|$) - [F,L]
+    RewriteRule ^database(/|$) - [F,L]
+    RewriteRule ^docs(/|$)     - [F,L]
+    RewriteRule ^storage/logs(/|$) - [F,L]
+
+    # ── Optional: Clean URL rewrites ──────────────────────
+    # Uncomment in Phase 4+ when a front-controller/router is added.
+    # RewriteCond %{REQUEST_FILENAME} !-f
+    # RewriteCond %{REQUEST_FILENAME} !-d
+    # RewriteRule ^(.*)$ index.php?route=$1 [QSA,L]
+</IfModule>
+
+# ── Security headers ───────────────────────────────────────
+<IfModule mod_headers.c>
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# ── PHP error display (production override) ───────────────
+# Uncomment in production:
+# php_flag display_errors Off
+# php_value error_reporting 0
