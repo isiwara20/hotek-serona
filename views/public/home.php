@@ -244,7 +244,7 @@
 <!-- ─────────────────────────────────────────────────────────────
      5. SIGNATURE NATURE EXPERIENCE HERO BAND
      ───────────────────────────────────────────────────────────── -->
-<section class="experience-band" id="experience-band">
+<section class="experience-band section-dark" id="experience-band">
     <img src="<?= asset('images/hero/experience-band.jpg') ?>" alt="Mountain nature background" class="experience-band-bg">
     <div class="container experience-band-content reveal-up">
         <span class="eyebrow-label">Experience Serona</span>
@@ -497,7 +497,7 @@
 <!-- ─────────────────────────────────────────────────────────────
      11. FINAL BOOKING ESCAPE CTA
      ───────────────────────────────────────────────────────────── -->
-<section class="final-cta-section" id="final-cta">
+<section class="final-cta-section section-dark" id="final-cta">
     <img src="<?= asset('images/hero/hero-bg.jpg') ?>" alt="Serona resort at dusk" class="final-cta-bg">
     <div class="container final-cta-content reveal-up">
         <span class="eyebrow-label">Plan Your Visit</span>

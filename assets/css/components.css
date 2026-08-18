@@ -631,6 +631,14 @@
     overflow: hidden;
 }
 
+.experience-band::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(26, 43, 35, 0.75) 0%, rgba(38, 59, 49, 0.85) 100%);
+    z-index: 1;
+}
+
 .experience-band-bg {
     position: absolute;
     inset: 0;
@@ -646,6 +654,18 @@
     text-align: center;
     max-width: 800px;
     margin-inline: auto;
+}
+
+.experience-band .eyebrow-label {
+    color: var(--color-sage-light);
+}
+
+.experience-band .section-title {
+    color: var(--color-white);
+}
+
+.experience-band .section-subtitle {
+    color: var(--color-sage-pale);
 }
 
 .experiences-icon-grid {
@@ -945,6 +965,14 @@
     overflow: hidden;
 }
 
+.final-cta-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(26, 43, 35, 0.75) 0%, rgba(38, 59, 49, 0.85) 100%);
+    z-index: 1;
+}
+
 .final-cta-bg {
     position: absolute;
     inset: 0;
@@ -959,6 +987,18 @@
     z-index: 2;
     max-width: 720px;
     margin-inline: auto;
+}
+
+.final-cta-section .eyebrow-label {
+    color: var(--color-sage-light);
+}
+
+.final-cta-section .section-title {
+    color: var(--color-white);
+}
+
+.final-cta-section .section-subtitle {
+    color: var(--color-sage-pale);
 }
 
 /* ============================================================
@@ -2194,4 +2234,429 @@
 
 .dining-final-cta .section-subtitle {
     color: rgba(198, 211, 193, 0.9);
+}
+
+/* ============================================================
+   15. Experiences Page Components
+   ============================================================ */
+
+/* Experiences Hero */
+.experiences-hero {
+    min-height: 78vh;
+}
+
+.experiences-hero-overlay {
+    background: linear-gradient(
+        90deg,
+        rgba(20, 35, 28, 0.82) 0%,
+        rgba(20, 35, 28, 0.52) 50%,
+        rgba(20, 35, 28, 0.15) 100%
+    );
+}
+
+.hero-botanical-motif {
+    position: absolute;
+    bottom: var(--space-6);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    opacity: 0.8;
+}
+
+/* Category Filter Navigation */
+.experiences-filter-section {
+    background-color: var(--color-ivory);
+    border-bottom: 1px solid var(--color-border);
+    padding-block: var(--space-4);
+    position: sticky;
+    top: var(--header-height, 80px);
+    z-index: 100;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.filter-nav-wrapper {
+    display: flex;
+    justify-content: center;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.filter-nav-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+.filter-nav-list {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+    white-space: nowrap;
+}
+
+.filter-tab-btn {
+    background: none;
+    border: none;
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--color-muted);
+    padding: var(--space-2) var(--space-3);
+    cursor: pointer;
+    position: relative;
+    transition: color var(--transition-normal);
+}
+
+.filter-tab-btn:hover {
+    color: var(--color-forest);
+}
+
+.filter-tab-btn.active {
+    color: var(--color-forest);
+    font-weight: 600;
+}
+
+.filter-tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--color-sage);
+    border-radius: var(--radius-full);
+}
+
+/* Signature Featured Experience */
+.featured-experience-card {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    background-color: var(--color-ivory);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--color-border);
+}
+
+.featured-exp-media {
+    position: relative;
+    min-height: 440px;
+}
+
+.featured-exp-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+}
+
+.featured-experience-card:hover .featured-exp-image {
+    transform: scale(1.02);
+}
+
+.featured-exp-badge {
+    position: absolute;
+    top: var(--space-6);
+    left: var(--space-6);
+    background-color: var(--color-forest);
+    color: var(--color-sage-light);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-full);
+    text-transform: uppercase;
+}
+
+.featured-exp-content {
+    padding: var(--space-12) var(--space-10);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.featured-exp-title {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 3.5vw, 2.75rem);
+    font-weight: 400;
+    color: var(--color-forest);
+    line-height: 1.15;
+    margin-bottom: var(--space-4);
+}
+
+.featured-exp-desc {
+    font-size: 1.0625rem;
+    color: var(--color-muted);
+    line-height: 1.7;
+    margin-bottom: var(--space-6);
+}
+
+.exp-meta-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-bottom: var(--space-8);
+}
+
+.meta-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--color-forest);
+    background-color: var(--color-cream);
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-full);
+    border: 1px solid var(--color-border);
+}
+
+.meta-pill i {
+    color: var(--color-sage);
+}
+
+/* Wellness Editorial Grid */
+.wellness-editorial-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-8);
+    margin-top: var(--space-12);
+}
+
+.wellness-card {
+    background-color: var(--color-ivory);
+    padding: var(--space-8) var(--space-6);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-subtle);
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.wellness-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+}
+
+.wellness-card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-full);
+    background-color: var(--color-cream);
+    color: var(--color-forest);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    margin-bottom: var(--space-4);
+}
+
+.wellness-card-title {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--color-forest);
+    margin-bottom: var(--space-3);
+}
+
+.wellness-card-desc {
+    font-size: 0.9375rem;
+    color: var(--color-muted);
+    line-height: 1.6;
+}
+
+/* Pool & Leisure Overlapping Section */
+.pool-leisure-section {
+    position: relative;
+    padding-block: var(--space-32);
+    overflow: hidden;
+}
+
+.pool-leisure-bg-wrapper {
+    position: absolute;
+    inset: 0;
+}
+
+.pool-leisure-bg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.pool-leisure-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        135deg,
+        rgba(20, 35, 28, 0.75) 0%,
+        rgba(20, 35, 28, 0.35) 100%
+    );
+}
+
+.pool-leisure-content-wrapper {
+    position: relative;
+    z-index: 2;
+}
+
+.pool-leisure-panel {
+    background-color: rgba(247, 245, 238, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: var(--radius-xl);
+    padding: var(--space-12) var(--space-10);
+    max-width: 620px;
+    box-shadow: var(--shadow-hero);
+    border: 1px solid rgba(149, 171, 145, 0.3);
+}
+
+.pool-highlights-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-4);
+    margin-top: var(--space-6);
+}
+
+.pool-hl-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--color-forest);
+}
+
+.pool-hl-item i {
+    color: var(--color-sage);
+}
+
+/* Local Experience Cards */
+.local-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-8);
+    margin-top: var(--space-12);
+}
+
+.local-card {
+    background-color: var(--color-cream);
+    padding: var(--space-8) var(--space-6);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+    transition: transform var(--transition-normal);
+}
+
+.local-card:hover {
+    transform: translateY(-4px);
+}
+
+.local-card-icon {
+    font-size: 1.5rem;
+    color: var(--color-forest);
+    margin-bottom: var(--space-4);
+}
+
+.local-card-title {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--color-forest);
+    margin-bottom: var(--space-3);
+}
+
+.local-card-desc {
+    font-size: 0.9375rem;
+    color: var(--color-muted);
+    line-height: 1.6;
+}
+
+/* Asymmetric Experiences Gallery */
+.exp-gallery-asymmetric-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 280px 240px;
+    gap: var(--space-6);
+    margin-top: var(--space-12);
+}
+
+.exp-gal-item {
+    position: relative;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-subtle);
+}
+
+.exp-gal-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+}
+
+.exp-gal-item:hover img {
+    transform: scale(1.03);
+}
+
+.exp-gal-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0) 50%,
+        rgba(26, 43, 35, 0.75) 100%
+    );
+    display: flex;
+    align-items: flex-end;
+    padding: var(--space-6);
+    opacity: 0.9;
+    transition: opacity var(--transition-normal);
+}
+
+.exp-gal-tag {
+    background-color: var(--color-forest);
+    color: var(--color-sage-light);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-full);
+}
+
+.exp-gal-1 { grid-column: span 2; grid-row: span 2; }
+.exp-gal-2 { grid-column: span 1; grid-row: span 1; }
+.exp-gal-3 { grid-column: span 1; grid-row: span 1; }
+.exp-gal-4 { grid-column: span 2; grid-row: span 1; }
+
+/* Planning Information Cards */
+.exp-info-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-6);
+    margin-top: var(--space-12);
+}
+
+.exp-info-card {
+    background-color: var(--color-ivory);
+    padding: var(--space-8) var(--space-6);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-subtle);
+}
+
+.exp-info-icon {
+    font-size: 1.5rem;
+    color: var(--color-forest);
+    margin-bottom: var(--space-4);
+}
+
+.exp-info-title {
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    font-weight: 500;
+    color: var(--color-forest);
+    margin-bottom: var(--space-2);
+}
+
+.exp-info-desc {
+    font-size: 0.90625rem;
+    color: var(--color-muted);
+    line-height: 1.6;
 }

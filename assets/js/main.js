@@ -155,5 +155,52 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    // ─────────────────────────────────────────────────────────────
+    // 5. Experiences Category Filter Interactivity
+    // ─────────────────────────────────────────────────────────────
+    const expFilterButtons = document.querySelectorAll('.filter-tab-btn');
+    const expCategoryBlocks = document.querySelectorAll('.experience-category-block');
+
+    if (expFilterButtons.length > 0) {
+        expFilterButtons.forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                const targetFilter = btn.getAttribute('data-filter');
+
+                expFilterButtons.forEach(function (b) {
+                    b.classList.remove('active');
+                    b.setAttribute('aria-selected', 'false');
+                });
+                btn.classList.add('active');
+                btn.setAttribute('aria-selected', 'true');
+
+                if (targetFilter === 'all') {
+                    expCategoryBlocks.forEach(function (block) {
+                        block.style.display = 'block';
+                        setTimeout(function () {
+                            block.style.opacity = '1';
+                        }, 50);
+                    });
+                } else {
+                    expCategoryBlocks.forEach(function (block) {
+                        const blockCat = block.getAttribute('data-category');
+                        if (blockCat === targetFilter) {
+                            block.style.display = 'block';
+                            setTimeout(function () {
+                                block.style.opacity = '1';
+                            }, 50);
+                            block.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        } else {
+                            block.style.opacity = '0';
+                            setTimeout(function () {
+                                block.style.display = 'none';
+                            }, 300);
+                        }
+                    });
+                }
+            });
+        });
+    }
+
 });
+
 
