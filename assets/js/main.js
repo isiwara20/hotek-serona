@@ -121,4 +121,39 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 5000);
     });
 
+    // ─────────────────────────────────────────────────────────────
+    // 4. Room Category Filter Interactivity
+    // ─────────────────────────────────────────────────────────────
+    const filterButtons = document.querySelectorAll('.rooms-filter-nav .filter-btn');
+    const roomRows = document.querySelectorAll('.room-editorial-row');
+
+    if (filterButtons.length > 0 && roomRows.length > 0) {
+        filterButtons.forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                const targetFilter = btn.getAttribute('data-filter');
+
+                filterButtons.forEach(function (b) { b.classList.remove('active'); });
+                btn.classList.add('active');
+
+                roomRows.forEach(function (row) {
+                    const rowCategory = row.getAttribute('data-category');
+                    if (targetFilter === 'all' || rowCategory === targetFilter) {
+                        row.style.display = 'grid';
+                        setTimeout(function () {
+                            row.style.opacity = '1';
+                            row.style.transform = 'translateY(0)';
+                        }, 50);
+                    } else {
+                        row.style.opacity = '0';
+                        row.style.transform = 'translateY(20px)';
+                        setTimeout(function () {
+                            row.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
+        });
+    }
+
 });
+

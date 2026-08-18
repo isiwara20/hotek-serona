@@ -15,9 +15,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- Project CSS -->
-    <link rel="stylesheet" href="<?= asset('css/main.css') ?>">
-    <link rel="stylesheet" href="<?= asset('css/components.css') ?>">
-    <link rel="stylesheet" href="<?= asset('css/responsive.css') ?>">
+    <?php
+    $mainCssPath       = ASSETS_PATH . '/css/main.css';
+    $componentsCssPath = ASSETS_PATH . '/css/components.css';
+    $responsiveCssPath = ASSETS_PATH . '/css/responsive.css';
+    $vMain       = file_exists($mainCssPath)       ? filemtime($mainCssPath)       : 1;
+    $vComponents = file_exists($componentsCssPath) ? filemtime($componentsCssPath) : 1;
+    $vResponsive = file_exists($responsiveCssPath) ? filemtime($responsiveCssPath) : 1;
+    ?>
+    <link rel="stylesheet" href="<?= asset('css/main.css') ?>?v=<?= $vMain ?>">
+    <link rel="stylesheet" href="<?= asset('css/components.css') ?>?v=<?= $vComponents ?>">
+    <link rel="stylesheet" href="<?= asset('css/responsive.css') ?>?v=<?= $vResponsive ?>">
 </head>
 <body>
 
@@ -29,15 +37,18 @@
         </a>
 
         <!-- Primary Navigation — Admin login is strictly NOT included here -->
+        <?php
+        $currentPage = $active_page ?? (in_array(basename($_SERVER['PHP_SELF']), ['index.php', '']) ? 'home' : basename($_SERVER['PHP_SELF'], '.php'));
+        ?>
         <nav class="site-nav" id="site-nav" aria-label="Primary navigation">
             <ul class="nav-list" role="list">
-                <li><a href="<?= base_url() ?>" class="nav-link active">Home</a></li>
-                <li><a href="<?= base_url('rooms.php') ?>" class="nav-link">Rooms &amp; Suites</a></li>
-                <li><a href="<?= base_url('dining.php') ?>" class="nav-link">Dining</a></li>
-                <li><a href="<?= base_url('experiences.php') ?>" class="nav-link">Experiences</a></li>
-                <li><a href="<?= base_url('gallery.php') ?>" class="nav-link">Gallery</a></li>
-                <li><a href="<?= base_url('about.php') ?>" class="nav-link">About</a></li>
-                <li><a href="<?= base_url('contact.php') ?>" class="nav-link">Contact</a></li>
+                <li><a href="<?= base_url() ?>" class="nav-link <?= $currentPage === 'home' ? 'active' : '' ?>">Home</a></li>
+                <li><a href="<?= base_url('rooms.php') ?>" class="nav-link <?= $currentPage === 'rooms' ? 'active' : '' ?>">Rooms &amp; Suites</a></li>
+                <li><a href="<?= base_url('dining.php') ?>" class="nav-link <?= $currentPage === 'dining' ? 'active' : '' ?>">Dining</a></li>
+                <li><a href="<?= base_url('experiences.php') ?>" class="nav-link <?= $currentPage === 'experiences' ? 'active' : '' ?>">Experiences</a></li>
+                <li><a href="<?= base_url('gallery.php') ?>" class="nav-link <?= $currentPage === 'gallery' ? 'active' : '' ?>">Gallery</a></li>
+                <li><a href="<?= base_url('about.php') ?>" class="nav-link <?= $currentPage === 'about' ? 'active' : '' ?>">About</a></li>
+                <li><a href="<?= base_url('contact.php') ?>" class="nav-link <?= $currentPage === 'contact' ? 'active' : '' ?>">Contact</a></li>
             </ul>
         </nav>
 

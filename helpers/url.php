@@ -10,13 +10,29 @@ declare(strict_types=1);
  */
 
 /**
+ * Helper to get the current application base URL dynamically.
+ * Auto-detects scheme, host, port, and subdirectory path.
+ */
+function get_app_base_url(): string
+{
+    if (isset($_SERVER['HTTP_HOST']) && isset($_SERVER['SCRIPT_NAME'])) {
+        $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+        $host   = $_SERVER['HTTP_HOST'];
+        $scriptDir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
+        $dir    = rtrim($scriptDir, '/');
+        return $scheme . '://' . $host . ($dir !== '' ? $dir : '') . '/';
+    }
+    return defined('BASE_URL') ? BASE_URL : '/';
+}
+
+/**
  * Return the application base URL (with trailing slash).
  *
  * Example: http://localhost/hotek-serona/
  */
 function base_url(string $path = ''): string
 {
-    return BASE_URL . ltrim($path, '/');
+    return get_app_base_url() . ltrim($path, '/');
 }
 
 /**
@@ -28,7 +44,7 @@ function base_url(string $path = ''): string
  */
 function asset(string $path): string
 {
-    return BASE_URL . 'assets/' . ltrim($path, '/');
+    return get_app_base_url() . 'assets/' . ltrim($path, '/');
 }
 
 /**
@@ -38,7 +54,7 @@ function asset(string $path): string
  */
 function upload_url(string $path): string
 {
-    return BASE_URL . 'storage/uploads/' . ltrim($path, '/');
+    return get_app_base_url() . 'storage/uploads/' . ltrim($path, '/');
 }
 
 /**
