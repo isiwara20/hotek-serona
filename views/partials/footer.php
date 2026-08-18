@@ -77,6 +77,9 @@
 <!-- JavaScript Files -->
 <script src="<?= asset('js/navigation.js') ?>"></script>
 <script src="<?= asset('js/main.js') ?>"></script>
+<?php if (isset($active_page) && $active_page === 'gallery'): ?>
+<script src="<?= asset('js/gallery.js') ?>"></script>
+<?php endif; ?>
 </body>
 </html>
 

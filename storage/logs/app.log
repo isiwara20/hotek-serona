@@ -15,3 +15,19 @@ Stack trace:
 #2 C:\xampp\htdocs\hotek-serona\index.php(8): HomeController->__construct()
 #3 {main}
   thrown in C:\xampp\htdocs\hotek-serona\dal\Database.php on line 67
+[18-Aug-2026 20:04:03 Europe/Berlin] [Database] Connection failed: SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it
+[18-Aug-2026 20:04:03 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it in C:\xampp\htdocs\hotek-serona\dal\Database.php:58
+Stack trace:
+#0 C:\xampp\htdocs\hotek-serona\dal\Database.php(58): PDO->__construct('mysql:host=127....', 'root', '', Array)
+#1 C:\xampp\htdocs\hotek-serona\dal\Database.php(31): Database::createConnection()
+#2 C:\xampp\htdocs\hotek-serona\controllers\GalleryController.php(14): Database::getConnection()
+#3 C:\xampp\htdocs\hotek-serona\gallery.php(11): GalleryController->__construct()
+#4 {main}
+
+Next RuntimeException: Database connection failed: SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it in C:\xampp\htdocs\hotek-serona\dal\Database.php:67
+Stack trace:
+#0 C:\xampp\htdocs\hotek-serona\dal\Database.php(31): Database::createConnection()
+#1 C:\xampp\htdocs\hotek-serona\controllers\GalleryController.php(14): Database::getConnection()
+#2 C:\xampp\htdocs\hotek-serona\gallery.php(11): GalleryController->__construct()
+#3 {main}
+  thrown in C:\xampp\htdocs\hotek-serona\dal\Database.php on line 67

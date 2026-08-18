@@ -734,3 +734,149 @@
     }
 }
 
+/* ============================================================
+   9. Gallery Page Responsive Adaptations
+   ============================================================ */
+@media (max-width: 1024px) {
+    .gallery-hero {
+        min-height: 68vh;
+    }
+
+    .gallery-masonry-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-4);
+    }
+
+    .card-aspect-wide,
+    .card-aspect-large {
+        grid-column: span 2;
+        height: 320px;
+    }
+
+    .card-aspect-portrait,
+    .card-aspect-square {
+        grid-column: span 1;
+        height: 260px;
+    }
+
+    .story-grid-rooms {
+        grid-template-columns: 1fr;
+    }
+
+    .story-media-main {
+        height: 360px;
+    }
+
+    .story-grid-dining {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .story-wide-content {
+        margin-left: var(--space-6);
+        max-width: 460px;
+        padding: var(--space-6);
+    }
+
+    .lightbox-prev { left: -10px; top: 50%; }
+    .lightbox-next { right: -10px; top: 50%; }
+}
+
+@media (max-width: 768px) {
+    .gallery-hero {
+        min-height: 65vh;
+    }
+
+    .gallery-filter-section {
+        top: 72px;
+    }
+
+    .filter-nav-list {
+        gap: var(--space-2);
+        padding-inline: var(--space-2);
+    }
+
+    .gallery-filter-btn {
+        font-size: 0.875rem;
+        padding: var(--space-2) var(--space-3);
+    }
+
+    .gallery-masonry-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-3);
+    }
+
+    .card-aspect-wide,
+    .card-aspect-large,
+    .card-aspect-portrait,
+    .card-aspect-square {
+        grid-column: span 1;
+        height: 200px;
+    }
+
+    .story-grid-dining {
+        grid-template-columns: 1fr;
+    }
+
+    .story-wide-banner {
+        min-height: unset;
+        flex-direction: column;
+        justify-content: flex-end;
+    }
+
+    .story-wide-content {
+        margin-left: 0;
+        max-width: 100%;
+        margin: var(--space-4);
+    }
+
+    .evening-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .lightbox-close {
+        top: -50px;
+        right: 10px;
+    }
+
+    .lightbox-prev,
+    .lightbox-next {
+        position: fixed;
+        bottom: 20px;
+        top: auto;
+    }
+
+    .lightbox-prev { left: 20px; }
+    .lightbox-next { right: 20px; }
+}
+
+@media (max-width: 430px) {
+    .gallery-hero {
+        min-height: 62vh;
+    }
+
+    .gallery-masonry-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card-aspect-wide,
+    .card-aspect-large,
+    .card-aspect-portrait,
+    .card-aspect-square {
+        grid-column: span 1;
+        height: 240px;
+    }
+
+    .story-media-main {
+        height: 260px;
+    }
+
+    .story-media-sub {
+        height: 180px;
+    }
+
+    .featured-banner-title {
+        font-size: 2.25rem;
+    }
+}
+
+
