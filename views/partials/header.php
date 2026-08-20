@@ -33,31 +33,63 @@
     <div class="header-container">
         <!-- Logo -->
         <a href="<?= base_url() ?>" class="site-logo" aria-label="<?= e(APP_NAME) ?> — Home">
-            <img src="<?= asset('images/branding/Logo.jpeg') ?>" alt="<?= e(APP_NAME) ?> Logo" class="logo-img">
+            <img src="<?= asset('images/branding/Logo.png') ?>" alt="<?= e(APP_NAME) ?> Logo" class="logo-img">
         </a>
 
-        <!-- Primary Navigation — Admin login is strictly NOT included here -->
+        <!-- Primary Navigation & Mobile Drawer -->
         <?php
         $currentPage = $active_page ?? (in_array(basename($_SERVER['PHP_SELF']), ['index.php', '']) ? 'home' : basename($_SERVER['PHP_SELF'], '.php'));
         ?>
         <nav class="site-nav" id="site-nav" aria-label="Primary navigation">
+            <!-- Mobile Drawer Top Header -->
+            <div class="drawer-header">
+                <div class="drawer-logo-badge">
+                    <img src="<?= asset('images/branding/Logo.png') ?>" alt="<?= e(APP_NAME) ?> Logo">
+                </div>
+                <button type="button" class="nav-close" id="nav-close" aria-label="Close navigation">
+                    <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                </button>
+            </div>
+
+            <!-- Navigation Links -->
             <ul class="nav-list" role="list">
                 <li><a href="<?= base_url() ?>" class="nav-link <?= $currentPage === 'home' ? 'active' : '' ?>">Home</a></li>
-                <li><a href="<?= base_url('rooms.php') ?>" class="nav-link <?= $currentPage === 'rooms' ? 'active' : '' ?>">Rooms &amp; Suites</a></li>
+                <li><a href="<?= base_url('rooms.php') ?>" class="nav-link <?= $currentPage === 'rooms' ? 'active' : '' ?>">Rooms</a></li>
                 <li><a href="<?= base_url('dining.php') ?>" class="nav-link <?= $currentPage === 'dining' ? 'active' : '' ?>">Dining</a></li>
                 <li><a href="<?= base_url('experiences.php') ?>" class="nav-link <?= $currentPage === 'experiences' ? 'active' : '' ?>">Experiences</a></li>
                 <li><a href="<?= base_url('gallery.php') ?>" class="nav-link <?= $currentPage === 'gallery' ? 'active' : '' ?>">Gallery</a></li>
                 <li><a href="<?= base_url('about.php') ?>" class="nav-link <?= $currentPage === 'about' ? 'active' : '' ?>">About</a></li>
                 <li><a href="<?= base_url('contact.php') ?>" class="nav-link <?= $currentPage === 'contact' ? 'active' : '' ?>">Contact</a></li>
             </ul>
+
+            <!-- Mobile Drawer Bottom Action Buttons -->
+            <div class="drawer-actions">
+                <hr class="drawer-divider">
+                <a href="<?= base_url('booking.php') ?>" class="btn btn-drawer-primary">
+                    <i class="fa-solid fa-calendar-check" aria-hidden="true"></i> Book Your Stay
+                </a>
+                <a href="tel:0777872280" class="btn btn-drawer-outline">
+                    <i class="fa-solid fa-phone" aria-hidden="true"></i> Hotline: 0777 872 280
+                </a>
+                <a href="tel:0817872280" class="btn btn-drawer-outline">
+                    <i class="fa-solid fa-building" aria-hidden="true"></i> Office: 0817 872 280
+                </a>
+            </div>
         </nav>
+
+        <!-- Backdrop overlay for mobile drawer -->
+        <div class="nav-overlay" id="nav-overlay"></div>
 
         <!-- Header Actions -->
         <div class="header-actions">
-            <a href="<?= base_url('booking.php') ?>" class="btn btn-header-cta" id="header-book-btn">Book Your Stay</a>
+            <a href="<?= base_url('booking.php') ?>" class="btn btn-header-cta" id="header-book-btn">
+                <i class="fa-solid fa-calendar-check" aria-hidden="true"></i>
+                <span class="btn-desktop-text">Book Your Stay</span>
+                <span class="btn-mobile-text">Book</span>
+            </a>
 
-            <!-- Mobile menu toggle -->
-            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="site-nav">
+            <!-- Mobile menu toggle box button -->
+            <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Open navigation" aria-expanded="false" aria-controls="site-nav">
                 <span class="hamburger"></span>
                 <span class="hamburger"></span>
                 <span class="hamburger"></span>

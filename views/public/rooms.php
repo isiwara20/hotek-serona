@@ -87,21 +87,7 @@
 </section>
 
 <!-- ─────────────────────────────────────────────────────────────
-     3. ROOM CATEGORY / FILTER BAR
-     ───────────────────────────────────────────────────────────── -->
-<div class="rooms-filter-section" id="rooms-filter">
-    <div class="container">
-        <nav class="rooms-filter-nav" aria-label="Room category filter">
-            <button type="button" class="filter-btn active" data-filter="all">All Stays</button>
-            <button type="button" class="filter-btn" data-filter="rooms">Deluxe Rooms</button>
-            <button type="button" class="filter-btn" data-filter="suites">Signature Suites</button>
-            <button type="button" class="filter-btn" data-filter="family">Family Villas</button>
-        </nav>
-    </div>
-</div>
-
-<!-- ─────────────────────────────────────────────────────────────
-     4. FEATURED ACCOMMODATION SPOTLIGHT
+     3. FEATURED ACCOMMODATION SPOTLIGHT
      ───────────────────────────────────────────────────────────── -->
 <?php if (!empty($featured_room)): ?>
 <section class="section section-cream featured-stay-section" id="featured-stay" aria-labelledby="featured-heading">
@@ -159,6 +145,20 @@
     </div>
 </section>
 <?php endif; ?>
+
+<!-- ─────────────────────────────────────────────────────────────
+     4. ROOM CATEGORY / FILTER BAR
+     ───────────────────────────────────────────────────────────── -->
+<div class="rooms-filter-section" id="rooms-filter">
+    <div class="container">
+        <nav class="rooms-filter-nav" aria-label="Room category filter">
+            <button type="button" class="filter-btn active" data-filter="all">All Stays</button>
+            <button type="button" class="filter-btn" data-filter="rooms">Deluxe Rooms</button>
+            <button type="button" class="filter-btn" data-filter="suites">Signature Suites</button>
+            <button type="button" class="filter-btn" data-filter="family">Family Villas</button>
+        </nav>
+    </div>
+</div>
 
 <!-- ─────────────────────────────────────────────────────────────
      5. MAIN ROOMS & SUITES LISTING (EDITORIAL ALTERNATING LAYOUT)

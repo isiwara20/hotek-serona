@@ -5,7 +5,7 @@
         <!-- Brand Column -->
         <div class="footer-brand">
             <a href="<?= base_url() ?>" class="footer-logo-link" aria-label="<?= e(APP_NAME) ?>">
-                <img src="<?= asset('images/branding/Logo.jpeg') ?>" alt="<?= e(APP_NAME) ?>" class="footer-logo-img">
+                <img src="<?= asset('images/branding/Logo.png') ?>" alt="<?= e(APP_NAME) ?>" class="footer-logo-img">
             </a>
             <span class="footer-tagline"><?= e(APP_TAGLINE) ?></span>
             <p class="footer-description">
@@ -77,6 +77,9 @@
 <!-- JavaScript Files -->
 <script src="<?= asset('js/navigation.js') ?>"></script>
 <script src="<?= asset('js/main.js') ?>"></script>
+<?php if (isset($active_page) && in_array($active_page, ['contact', 'booking'])): ?>
+<script src="<?= asset('js/validation.js') ?>"></script>
+<?php endif; ?>
 <?php if (isset($active_page) && $active_page === 'gallery'): ?>
 <script src="<?= asset('js/gallery.js') ?>"></script>
 <?php endif; ?>

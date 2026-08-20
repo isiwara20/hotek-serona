@@ -1,84 +1,142 @@
 /**
  * Serona Hotel & Resort — Navigation JavaScript
  * Handles sticky header scroll transformations, mobile menu toggle,
- * escape key handler, and accessibility state.
+ * escape key handler, accessibility state, and responsive resize protection.
  */
 
 'use strict';
 
-document.addEventListener('DOMContentLoaded', function () {
-    const header = document.getElementById('site-header');
-    const navToggle = document.getElementById('nav-toggle');
-    const siteNav = document.getElementById('site-nav');
+// ─────────────────────────────────────────────────────────────
+// Global functions defined BEFORE DOMContentLoaded so inline
+// onclick= attributes work immediately on click.
+// ─────────────────────────────────────────────────────────────
 
-    // ─────────────────────────────────────────────────────────────
-    // 1. Sticky Header Scroll Transformation
-    // ─────────────────────────────────────────────────────────────
+window.openMobileMenu = function () {
+    var siteNav    = document.getElementById('site-nav');
+    var navToggle  = document.getElementById('nav-toggle');
+    var navOverlay = document.getElementById('nav-overlay');
+
+    if (siteNav) {
+        siteNav.classList.add('open');
+        siteNav.style.display = 'flex';
+    }
+    if (navToggle) {
+        navToggle.classList.add('active');
+        navToggle.setAttribute('aria-expanded', 'true');
+        navToggle.setAttribute('aria-label', 'Close navigation');
+    }
+    if (navOverlay) {
+        navOverlay.classList.add('open');
+        navOverlay.style.display = 'block';
+    }
+    document.body.classList.add('nav-open');
+    document.body.style.overflow = 'hidden';
+};
+
+window.closeMobileMenu = function () {
+    var siteNav    = document.getElementById('site-nav');
+    var navToggle  = document.getElementById('nav-toggle');
+    var navOverlay = document.getElementById('nav-overlay');
+
+    if (siteNav) {
+        siteNav.classList.remove('open');
+        siteNav.style.display = 'none';
+    }
+    if (navToggle) {
+        navToggle.classList.remove('active');
+        navToggle.setAttribute('aria-expanded', 'false');
+        navToggle.setAttribute('aria-label', 'Open navigation');
+    }
+    if (navOverlay) {
+        navOverlay.classList.remove('open');
+        navOverlay.style.display = 'none';
+    }
+    document.body.classList.remove('nav-open');
+    document.body.style.overflow = '';
+};
+
+// ─────────────────────────────────────────────────────────────
+// DOM-ready: attach event listeners
+// ─────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', function () {
+    var header     = document.getElementById('site-header');
+    var siteNav    = document.getElementById('site-nav');
+    var navToggle  = document.getElementById('nav-toggle');
+    var navClose   = document.getElementById('nav-close');
+    var navOverlay = document.getElementById('nav-overlay');
+
+    // 1. Sticky Header Scroll
     function handleHeaderScroll() {
         if (!header) return;
-        const scrollY = window.scrollY || window.pageYOffset;
-        if (scrollY > 50) {
+        if (window.scrollY > 50) {
             header.classList.add('scrolled');
         } else {
             header.classList.remove('scrolled');
         }
     }
-
     window.addEventListener('scroll', handleHeaderScroll, { passive: true });
-    handleHeaderScroll(); // Initialize on page load
+    handleHeaderScroll();
 
-    // ─────────────────────────────────────────────────────────────
-    // 2. Mobile Menu Toggle & Accessibility
-    // ─────────────────────────────────────────────────────────────
-    if (navToggle && siteNav) {
-        function toggleMobileMenu() {
-            const isOpen = siteNav.classList.contains('open');
-            if (isOpen) {
-                closeMobileMenu();
-            } else {
-                openMobileMenu();
-            }
-        }
-
-        function openMobileMenu() {
-            siteNav.classList.add('open');
-            navToggle.classList.add('active');
-            navToggle.setAttribute('aria-expanded', 'true');
-            document.body.style.overflow = 'hidden'; // Lock scroll on mobile
-        }
-
-        function closeMobileMenu() {
-            siteNav.classList.remove('open');
-            navToggle.classList.remove('active');
-            navToggle.setAttribute('aria-expanded', 'false');
-            document.body.style.overflow = '';
-        }
-
+    // 2. Hamburger toggle button
+    if (navToggle) {
         navToggle.addEventListener('click', function (e) {
+            e.preventDefault();
             e.stopPropagation();
-            toggleMobileMenu();
-        });
-
-        // Close mobile nav when clicking a nav link
-        const navLinks = siteNav.querySelectorAll('.nav-link');
-        navLinks.forEach(function (link) {
-            link.addEventListener('click', function () {
-                closeMobileMenu();
-            });
-        });
-
-        // Close mobile nav when clicking outside
-        document.addEventListener('click', function (e) {
-            if (siteNav.classList.contains('open') && !siteNav.contains(e.target) && !navToggle.contains(e.target)) {
-                closeMobileMenu();
-            }
-        });
-
-        // Close on Escape key press
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape' && siteNav.classList.contains('open')) {
-                closeMobileMenu();
+            if (siteNav && siteNav.classList.contains('open')) {
+                window.closeMobileMenu();
+            } else {
+                window.openMobileMenu();
             }
         });
     }
+
+    // 3. Close (X) button — direct listener
+    if (navClose) {
+        navClose.addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            window.closeMobileMenu();
+        });
+    }
+
+    // 4. Backdrop overlay click
+    if (navOverlay) {
+        navOverlay.addEventListener('click', function (e) {
+            e.preventDefault();
+            window.closeMobileMenu();
+        });
+    }
+
+    // 5. Close when any nav link or drawer button is clicked
+    if (siteNav) {
+        var drawerInteractiveElements = siteNav.querySelectorAll('.nav-link, .drawer-actions a, .btn');
+        drawerInteractiveElements.forEach(function (el) {
+            el.addEventListener('click', function () {
+                window.closeMobileMenu();
+            });
+        });
+    }
+
+    // 6. Close on Escape key
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' || e.key === 'Esc') {
+            window.closeMobileMenu();
+        }
+    });
+
+    // 7. Close on outside click
+    document.addEventListener('click', function (e) {
+        if (!siteNav || !siteNav.classList.contains('open')) return;
+        if (!siteNav.contains(e.target) && (!navToggle || !navToggle.contains(e.target))) {
+            window.closeMobileMenu();
+        }
+    });
+
+    // 8. Desktop Breakpoint Resize Protection
+    window.addEventListener('resize', function () {
+        if (window.innerWidth > 992) {
+            window.closeMobileMenu();
+        }
+    });
 });
+

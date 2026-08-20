@@ -22,7 +22,11 @@ class ContactController
      */
     public function showForm(): void
     {
-        $data = ['page_title' => 'Contact Us — ' . APP_NAME];
+        $data = [
+            'page_title'       => 'Contact & Location — ' . APP_NAME,
+            'active_page'      => 'contact',
+            'meta_description' => 'Get in touch with Serona Hotel & Resort in Sigiriya, Sri Lanka. Contact our 24/7 concierge for room reservations, dining enquiries, and custom transfers.'
+        ];
         $this->render('public/contact', $data);
     }
 
