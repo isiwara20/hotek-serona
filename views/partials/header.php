@@ -6,6 +6,11 @@
     <meta name="description" content="<?= e($meta_description ?? 'Serona Hotel & Resort — Nature\'s Embrace. A premium eco-luxury retreat in Sri Lanka.') ?>">
     <title><?= e($page_title ?? APP_NAME . " — Nature's Embrace") ?></title>
 
+    <!-- Browser Tab Title Logo Favicon (White Rounded Background) -->
+    <link rel="icon" type="image/svg+xml" href="<?= asset('images/branding/favicon-rounded.svg') ?>">
+    <link rel="alternate icon" type="image/png" href="<?= asset('images/branding/Logo.png') ?>">
+    <link rel="apple-touch-icon" href="<?= asset('images/branding/favicon-rounded.svg') ?>">
+
     <!-- Google Fonts: Cormorant Garamond (headings) + Inter (body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

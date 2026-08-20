@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= e($page_title ?? 'Admin — ' . APP_NAME) ?></title>
 
+    <!-- Browser Tab Title Logo Favicon (White Rounded Background) -->
+    <link rel="icon" type="image/svg+xml" href="<?= asset('images/branding/favicon-rounded.svg') ?>">
+    <link rel="alternate icon" type="image/png" href="<?= asset('images/branding/Logo.png') ?>">
+    <link rel="apple-touch-icon" href="<?= asset('images/branding/favicon-rounded.svg') ?>">
+
     <!-- Google Fonts: Playfair Display + Montserrat (Admin) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

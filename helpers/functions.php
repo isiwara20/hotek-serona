@@ -140,3 +140,42 @@ function str_limit(string $value, int $limit = 100, string $end = '…'): string
     }
     return rtrim(mb_substr($value, 0, $limit)) . $end;
 }
+
+/**
+ * Process uploaded image file from device and save to assets/images/uploads/ directory.
+ * Returns relative path (e.g. 'images/uploads/upload_66c2e8a1.jpg') or null on failure/no file.
+ */
+function upload_image(string $fileKey = 'image_file', string $targetDir = 'uploads'): ?string
+{
+    if (empty($_FILES[$fileKey]) || $_FILES[$fileKey]['error'] !== UPLOAD_ERR_OK) {
+        return null;
+    }
+
+    $file = $_FILES[$fileKey];
+    $tmpName = $file['tmp_name'];
+
+    if (!is_uploaded_file($tmpName)) {
+        return null;
+    }
+
+    $allowedExts = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
+    $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+
+    if (!in_array($ext, $allowedExts, true)) {
+        return null;
+    }
+
+    $destinationFolder = ASSETS_PATH . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . $targetDir;
+    if (!is_dir($destinationFolder)) {
+        @mkdir($destinationFolder, 0755, true);
+    }
+
+    $newFilename = 'upload_' . uniqid() . '.' . ($ext === 'jpeg' ? 'jpg' : $ext);
+    $destinationPath = $destinationFolder . DIRECTORY_SEPARATOR . $newFilename;
+
+    if (move_uploaded_file($tmpName, $destinationPath)) {
+        return 'images/' . $targetDir . '/' . $newFilename;
+    }
+
+    return null;
+}

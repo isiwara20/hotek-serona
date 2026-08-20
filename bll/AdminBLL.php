@@ -89,6 +89,104 @@ class AdminBLL
     }
 
     /**
+     * Mark a contact message as read.
+     */
+    public function markMessageAsRead(int $id): bool
+    {
+        return $this->contactDAL->markAsRead($id);
+    }
+
+    /**
+     * Return all rooms for admin catalogue management.
+     */
+    public function getAllRooms(): array
+    {
+        $roomDAL = new RoomDAL(Database::getConnection());
+        return $roomDAL->findAll();
+    }
+
+    public function saveRoom(array $data, ?int $id = null): bool|int
+    {
+        $roomDAL = new RoomDAL(Database::getConnection());
+        if ($id && $id > 0) {
+            return $roomDAL->update($id, $data);
+        }
+        return $roomDAL->create($data);
+    }
+
+    public function deleteRoom(int $id): bool
+    {
+        $roomDAL = new RoomDAL(Database::getConnection());
+        return $roomDAL->delete($id);
+    }
+
+    // Dining CRUD
+    public function getAllDining(): array
+    {
+        $diningDAL = new DiningDAL(Database::getConnection());
+        return $diningDAL->findAll();
+    }
+
+    public function saveDining(array $data, ?int $id = null): bool|int
+    {
+        $diningDAL = new DiningDAL(Database::getConnection());
+        if ($id && $id > 0) {
+            return $diningDAL->update($id, $data);
+        }
+        return $diningDAL->create($data);
+    }
+
+    public function deleteDining(int $id): bool
+    {
+        $diningDAL = new DiningDAL(Database::getConnection());
+        return $diningDAL->delete($id);
+    }
+
+    // Experiences CRUD
+    public function getAllExperiences(): array
+    {
+        $expDAL = new ExperienceDAL(Database::getConnection());
+        return $expDAL->findAllActive();
+    }
+
+    public function saveExperience(array $data, ?int $id = null): bool|int
+    {
+        $expDAL = new ExperienceDAL(Database::getConnection());
+        if ($id && $id > 0) {
+            return $expDAL->update($id, $data);
+        }
+        return $expDAL->create($data);
+    }
+
+    public function deleteExperience(int $id): bool
+    {
+        $expDAL = new ExperienceDAL(Database::getConnection());
+        return $expDAL->delete($id);
+    }
+
+    // Gallery CRUD
+    public function getAllGallery(): array
+    {
+        $galleryDAL = new GalleryDAL(Database::getConnection());
+        return $galleryDAL->findAllActive();
+    }
+
+    public function saveGallery(array $data, ?int $id = null): bool|int
+    {
+        $galleryDAL = new GalleryDAL(Database::getConnection());
+        if ($id && $id > 0) {
+            return $galleryDAL->update($id, $data);
+        }
+        return $galleryDAL->create($data);
+    }
+
+    public function deleteGallery(int $id): bool
+    {
+        $galleryDAL = new GalleryDAL(Database::getConnection());
+        return $galleryDAL->delete($id);
+    }
+
+    /**
      * Return all site settings.
      *
      * @return array<string, string>

@@ -93,7 +93,15 @@ function post(string $key): ?string
 /**
  * Return a cleaned GET value, or null if the key does not exist.
  */
-function get_param(string $key): ?string
+function get(string $key): ?string
 {
     return isset($_GET[$key]) ? sanitize_string((string) $_GET[$key]) : null;
+}
+
+/**
+ * Return a cleaned GET value, or null if the key does not exist.
+ */
+function get_param(string $key): ?string
+{
+    return get($key);
 }

@@ -197,4 +197,46 @@ class GalleryDAL extends BaseDAL
             ]
         ];
     }
+
+    public function create(array $data): int|false
+    {
+        $stmt = $this->pdo->prepare(
+            'INSERT INTO gallery (filename, caption, category, sort_order, is_active, created_at)
+             VALUES (:filename, :caption, :category, :sort_order, :is_active, NOW())'
+        );
+
+        $success = $stmt->execute([
+            ':filename'   => $data['filename'],
+            ':caption'    => $data['caption']    ?? null,
+            ':category'   => $data['category']   ?? 'rooms',
+            ':sort_order' => (int)($data['sort_order'] ?? 0),
+            ':is_active'  => (int)($data['is_active']  ?? 1),
+        ]);
+
+        return $success ? (int) $this->pdo->lastInsertId() : false;
+    }
+
+    public function update(int $id, array $data): bool
+    {
+        $stmt = $this->pdo->prepare(
+            'UPDATE gallery
+             SET    caption = :caption,
+                    category = :category,
+                    is_active = :is_active
+             WHERE  id = :id'
+        );
+
+        return $stmt->execute([
+            ':caption'   => $data['caption']  ?? null,
+            ':category'  => $data['category'] ?? 'rooms',
+            ':is_active' => (int)($data['is_active'] ?? 1),
+            ':id'        => $id,
+        ]);
+    }
+
+    public function delete(int $id): bool
+    {
+        $stmt = $this->pdo->prepare('DELETE FROM gallery WHERE id = :id');
+        return $stmt->execute([':id' => $id]);
+    }
 }

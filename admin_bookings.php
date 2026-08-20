@@ -5,4 +5,8 @@ require_once __DIR__ . '/config/app.php';
 require_once __DIR__ . '/config/init.php';
 
 $controller = new AdminController();
-$controller->dashboard();
+if (is_post()) {
+    $controller->updateBookingStatus();
+} else {
+    $controller->bookings();
+}

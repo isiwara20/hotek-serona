@@ -7,6 +7,11 @@
     <meta name="robots" content="noindex, nofollow">
     <title><?= e($page_title ?? 'Admin Login') ?></title>
 
+    <!-- Browser Tab Title Logo Favicon (White Rounded Background) -->
+    <link rel="icon" type="image/svg+xml" href="<?= asset('images/branding/favicon-rounded.svg') ?>">
+    <link rel="alternate icon" type="image/png" href="<?= asset('images/branding/Logo.png') ?>">
+    <link rel="apple-touch-icon" href="<?= asset('images/branding/favicon-rounded.svg') ?>">
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

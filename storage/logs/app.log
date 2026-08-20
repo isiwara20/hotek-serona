@@ -31,3 +31,23 @@ Stack trace:
 #2 C:\xampp\htdocs\hotek-serona\gallery.php(11): GalleryController->__construct()
 #3 {main}
   thrown in C:\xampp\htdocs\hotek-serona\dal\Database.php on line 67
+[2026-08-20 11:39:26] [WARNING] [Auth] Failed login attempt. | context: {"email":"admin@serona.example.com"}
+[2026-08-20 11:40:08] [WARNING] [Auth] Failed login attempt. | context: {"email":"admin@serona.example.com"}
+[2026-08-20 11:42:12] [INFO] [Auth] Admin logged in. | context: {"id":1,"email":"admin@serona.example.com"}
+[20-Aug-2026 11:54:41 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function get() in C:\xampp\htdocs\hotek-serona\controllers\AdminController.php:218
+Stack trace:
+#0 C:\xampp\htdocs\hotek-serona\admin.php(102): AdminController->deleteDining()
+#1 {main}
+  thrown in C:\xampp\htdocs\hotek-serona\controllers\AdminController.php on line 218
+[20-Aug-2026 11:59:03 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'price' in 'field list' in C:\xampp\htdocs\hotek-serona\dal\DiningDAL.php:61
+Stack trace:
+#0 C:\xampp\htdocs\hotek-serona\dal\DiningDAL.php(61): PDO->prepare('UPDATE dining_i...')
+#1 C:\xampp\htdocs\hotek-serona\bll\AdminBLL.php(134): DiningDAL->update(5, Array)
+#2 C:\xampp\htdocs\hotek-serona\controllers\AdminController.php(211): AdminBLL->saveDining(Array, 5)
+#3 C:\xampp\htdocs\hotek-serona\admin.php(27): AdminController->saveDining()
+#4 {main}
+  thrown in C:\xampp\htdocs\hotek-serona\dal\DiningDAL.php on line 61
+[20-Aug-2026 12:24:36 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function imagecreatetruecolor() in C:\xampp\htdocs\hotek-serona\scratch\generate_favicon.php:18
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\hotek-serona\scratch\generate_favicon.php on line 18

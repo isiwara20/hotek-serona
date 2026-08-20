@@ -162,102 +162,62 @@
 </section>
 
 <!-- ─────────────────────────────────────────────────────────────
-     4. CULINARY CATEGORIES
+     4. RESORT DINING CATALOGUE & MENU
      ───────────────────────────────────────────────────────────── -->
 <section class="section section-cream" id="dining-categories" aria-labelledby="dining-cat-heading">
     <div class="container">
         <div class="section-header text-center reveal-up">
-            <span class="eyebrow-label">WHAT WE OFFER</span>
-            <h2 class="section-title" id="dining-cat-heading">Savour Every Moment</h2>
+            <span class="eyebrow-label">OUR DINING CATALOGUE</span>
+            <h2 class="section-title" id="dining-cat-heading">Freshly Prepared Resort Offerings</h2>
             <p class="section-subtitle">
-                From the first light of morning through to quiet evening dining, Serona offers a complete culinary experience for every mood and occasion.
+                Explore our curated culinary collection, freshly crafted each day using locally sourced ingredients and authentic island spices.
             </p>
         </div>
 
-        <!-- Asymmetric Category Grid -->
-        <div class="dining-category-grid reveal-up">
-
-            <!-- Large Feature: Breakfast -->
-            <article class="dining-cat-card dining-cat-large" id="cat-breakfast">
-                <img
-                    src="<?= asset('images/gallery/gallery-3.jpg') ?>"
-                    alt="Fresh Sri Lankan breakfast spread with tropical fruits and local delicacies"
-                    class="dining-cat-img"
-                    loading="lazy"
-                >
-                <div class="dining-cat-overlay">
-                    <span class="dining-cat-label">Breakfast</span>
-                    <p class="dining-cat-desc">A comforting selection of traditional flavours prepared fresh each morning. Begin the day gently, surrounded by nature.</p>
-                    <span class="dining-cat-tag">7:00 AM – 10:30 AM</span>
-                </div>
-            </article>
-
-            <!-- Medium: Lunch -->
-            <article class="dining-cat-card dining-cat-medium" id="cat-lunch">
-                <img
-                    src="<?= asset('images/gallery/gallery-4.jpg') ?>"
-                    alt="Light fresh lunch plates with garden vegetables and herbs"
-                    class="dining-cat-img"
-                    loading="lazy"
-                >
-                <div class="dining-cat-overlay">
-                    <span class="dining-cat-label">Lunch</span>
-                    <p class="dining-cat-desc">Garden fresh plates celebrating seasonal vegetables and local ingredients.</p>
-                </div>
-            </article>
-
-            <!-- Medium: Local Specialities -->
-            <article class="dining-cat-card dining-cat-medium" id="cat-local">
-                <img
-                    src="<?= asset('images/dining/dining-main.jpg') ?>"
-                    alt="Sri Lankan local speciality dishes with spices and traditional flavours"
-                    class="dining-cat-img"
-                    loading="lazy"
-                >
-                <div class="dining-cat-overlay">
-                    <span class="dining-cat-label">Local Specialities</span>
-                    <p class="dining-cat-desc">Authentic Sri Lankan flavours prepared with genuine care and tradition.</p>
-                </div>
-            </article>
-
-            <!-- Small Tiles Row -->
-            <article class="dining-cat-card dining-cat-small" id="cat-dinner">
-                <img
-                    src="<?= asset('images/gallery/gallery-1.jpg') ?>"
-                    alt="Elegant evening dinner setting at Serona"
-                    class="dining-cat-img"
-                    loading="lazy"
-                >
-                <div class="dining-cat-overlay">
-                    <span class="dining-cat-label">Dinner</span>
-                </div>
-            </article>
-
-            <article class="dining-cat-card dining-cat-small" id="cat-desserts">
-                <img
-                    src="<?= asset('images/gallery/gallery-2.jpg') ?>"
-                    alt="Serona desserts and sweet treats"
-                    class="dining-cat-img"
-                    loading="lazy"
-                >
-                <div class="dining-cat-overlay">
-                    <span class="dining-cat-label">Desserts</span>
-                </div>
-            </article>
-
-            <article class="dining-cat-card dining-cat-small" id="cat-beverages">
-                <img
-                    src="<?= asset('images/hero/experience-band.jpg') ?>"
-                    alt="Artisan beverages and fresh drinks at Serona"
-                    class="dining-cat-img"
-                    loading="lazy"
-                >
-                <div class="dining-cat-overlay">
-                    <span class="dining-cat-label">Beverages</span>
-                </div>
-            </article>
-
-        </div>
+        <?php if (!empty($meals)): ?>
+            <div class="dining-meals-grid reveal-up" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem; margin-top: 2.5rem;">
+                <?php foreach ($meals as $meal): ?>
+                    <article class="meal-card" style="background: #ffffff; border: 1px solid #E5E2DA; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.04); display: flex; flex-direction: column; transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                        <div style="position: relative; width: 100%; height: 220px; overflow: hidden;">
+                            <img
+                                src="<?= asset($meal['filename'] ?? 'images/dining/dining-main.jpg') ?>"
+                                alt="<?= e($meal['name']) ?>"
+                                style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease;"
+                                loading="lazy"
+                            >
+                            <span style="position: absolute; top: 1rem; left: 1rem; background: rgba(38, 59, 49, 0.9); color: #F5F2EB; font-family: Montserrat; font-size: 0.75rem; font-weight: 600; padding: 0.3rem 0.8rem; border-radius: 50px; text-transform: uppercase; letter-spacing: 0.05em;">
+                                <?= e($meal['category'] ?? 'Speciality') ?>
+                            </span>
+                            <span style="position: absolute; bottom: 1rem; right: 1rem; background: #C5A059; color: #FFFFFF; font-family: Playfair Display; font-size: 1.1rem; font-weight: 700; padding: 0.4rem 0.9rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
+                                <?= e($meal['price'] ?? '$18.00') ?>
+                            </span>
+                        </div>
+                        <div style="padding: 1.5rem; display: flex; flex-direction: column; flex-grow: 1;">
+                            <h3 style="font-family: Playfair Display; font-size: 1.3rem; color: #263B31; margin: 0 0 0.6rem 0; font-weight: 600;">
+                                <?= e($meal['name']) ?>
+                            </h3>
+                            <p style="font-family: Montserrat; font-size: 0.875rem; color: #5B635B; line-height: 1.6; margin: 0 0 1.25rem 0; flex-grow: 1;">
+                                <?= e($meal['description'] ?? 'Freshly prepared daily with seasonal ingredients.') ?>
+                            </p>
+                            <div style="display: flex; align-items: center; justify-content: space-between; border-top: 1px solid #F0EEE6; padding-top: 0.85rem;">
+                                <span style="font-size: 0.8rem; color: #263B31; font-weight: 600; display: flex; align-items: center; gap: 0.4rem;">
+                                    <i class="fa-solid fa-leaf" style="color: #95AB91;"></i> Fresh Local Harvest
+                                </span>
+                                <a href="<?= base_url('contact.php') ?>" class="btn btn-outline-dark" style="padding: 0.4rem 0.9rem; font-size: 0.775rem;">
+                                    Reserve Table
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                <?php endforeach; ?>
+            </div>
+        <?php else: ?>
+            <div class="text-center" style="padding: 4rem 1rem; background: #FAF9F5; border-radius: 12px; border: 1px dashed #D8D4C8; margin-top: 2rem;">
+                <i class="fa-solid fa-utensils" style="font-size: 2.5rem; color: #C5A059; margin-bottom: 1rem;"></i>
+                <h3 style="font-family: Playfair Display; color: #263B31; margin-bottom: 0.5rem;">Curating Fresh Menus</h3>
+                <p style="color: #6F776F; max-width: 500px; margin: 0 auto;">Our executive chef is currently curating seasonal resort offerings. Please check back shortly or enquire with concierge.</p>
+            </div>
+        <?php endif; ?>
     </div>
 </section>
 

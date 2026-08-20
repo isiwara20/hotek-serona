@@ -173,4 +173,49 @@ class ExperienceDAL extends BaseDAL
             ]
         ];
     }
+
+    public function create(array $data): int|false
+    {
+        $stmt = $this->pdo->prepare(
+            'INSERT INTO experiences (name, description, filename, sort_order, is_active, created_at, updated_at)
+             VALUES (:name, :description, :filename, :sort_order, :is_active, NOW(), NOW())'
+        );
+
+        $success = $stmt->execute([
+            ':name'        => $data['name'],
+            ':description' => $data['description'] ?? null,
+            ':filename'    => $data['filename']    ?? 'images/experiences/nature-walk.jpg',
+            ':sort_order'  => (int)($data['sort_order'] ?? 0),
+            ':is_active'   => (int)($data['is_active']  ?? 1),
+        ]);
+
+        return $success ? (int) $this->pdo->lastInsertId() : false;
+    }
+
+    public function update(int $id, array $data): bool
+    {
+        $stmt = $this->pdo->prepare(
+            'UPDATE experiences
+             SET    name = :name,
+                    description = :description,
+                    filename = :filename,
+                    is_active = :is_active,
+                    updated_at = NOW()
+             WHERE  id = :id'
+        );
+
+        return $stmt->execute([
+            ':name'        => $data['name'],
+            ':description' => $data['description'] ?? null,
+            ':filename'    => $data['filename']    ?? 'images/experiences/nature-walk.jpg',
+            ':is_active'   => (int)($data['is_active']  ?? 1),
+            ':id'          => $id,
+        ]);
+    }
+
+    public function delete(int $id): bool
+    {
+        $stmt = $this->pdo->prepare('DELETE FROM experiences WHERE id = :id');
+        return $stmt->execute([':id' => $id]);
+    }
 }
